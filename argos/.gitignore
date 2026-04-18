@@ -1,0 +1,31 @@
+# Gradle build artifacts
+build/
+dist/
+.gradle/
+
+# IDE files
+.idea/
+*.iml
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+venv/
+.venv/
+*.egg
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Ghidra data
+*.gpr
+*.rep/

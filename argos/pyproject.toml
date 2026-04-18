@@ -1,0 +1,32 @@
+[project]
+name = "argos"
+version = "1.0.0"
+description = "AI-powered binary analysis through the Model Context Protocol"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+keywords = [
+    "reverse-engineering",
+    "binary-analysis",
+    "mcp",
+    "ai",
+    "ghidra"
+]
+
+dependencies = [
+    "pyghidra>=3.0.0",
+    "mcp",
+    "httpx>=0.27.0,<1.0",
+    "httpx-sse>=0.4.0",
+]
+
+[project.scripts]
+mcp-argos = "argos_cli.__main__:main"
+
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["argos_cli"]
+package-dir = {"" = "python"}
