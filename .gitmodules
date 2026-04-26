@@ -1,0 +1,3 @@
+[submodule "mcp-gdb"]
+	path = mcp-gdb
+	url = https://github.com/signal-slot/mcp-gdb.git

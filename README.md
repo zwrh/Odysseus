@@ -3,7 +3,7 @@ Autonomous binary vulnerability research workflow with dynamic and static capabi
 
 ---
 
-## Argos
+## Argos (Static Analysis)
 
 ```
                     __
@@ -37,3 +37,71 @@ docker run -p 8080:8080 -v /path/to/binaries:/work argos
 ```
 
 See [argos/README.md](argos/README.md) for detailed documentation.
+
+---
+
+## MCP-GDB (Dynamic Analysis)
+
+**MCP-GDB** provides GDB debugging functionality through the Model Context Protocol, enabling AI-assisted dynamic analysis and debugging sessions.
+
+### Features
+
+- Start and manage GDB debugging sessions
+- Load programs and core dumps for analysis
+- Set breakpoints, step through code, and examine memory
+- View call stacks, variables, and registers
+- Execute arbitrary GDB commands
+
+### Quick Start
+
+```bash
+cd mcp-gdb
+npm install
+npm run build
+```
+
+See [mcp-gdb/README.md](mcp-gdb/README.md) for detailed documentation.
+
+---
+
+## MCP Configuration
+
+To use both tools with Claude, add them to your MCP configuration:
+
+### Claude Code
+
+```bash
+# Add Argos (Ghidra)
+claude mcp add argos -s user -- docker run -i --rm -p 8080:8080 -v /path/to/binaries:/work argos --mcp
+
+# Add GDB
+claude mcp add gdb -- npx -y mcp-gdb
+```
+
+### Claude Desktop
+
+Add the following to your Claude Desktop MCP configuration (`claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "argos": {
+      "command": "docker",
+      "args": ["run", "-i", "--rm", "-p", "8080:8080", "-v", "/path/to/binaries:/work", "argos", "--mcp"]
+    },
+    "gdb": {
+      "command": "npx",
+      "args": ["-y", "mcp-gdb"]
+    }
+  }
+}
+```
+
+---
+
+## Workflow
+
+With both tools configured, you can perform comprehensive binary analysis:
+
+1. **Static Analysis (Argos)**: Import binaries into Ghidra, decompile functions, analyze control flow, identify interesting targets
+2. **Dynamic Analysis (MCP-GDB)**: Debug the binary, set breakpoints at identified locations, examine runtime behavior, validate hypotheses
